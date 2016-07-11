@@ -7,24 +7,32 @@ class TrailsController < ApplicationController
   end
 
   def index
-    @trails = Trail.all
-response = HTTParty.get "https://trailapi-trailapi.p.mashape.com/",
-  headers:{
+
+    response = HTTParty.get "https://trailapi-trailapi.p.mashape.com/",
+    headers:{
     "X-Mashape-Key" => "8UWBorcFvUmshd8zqT952LbcicNSp1Ay4AmjsnCrz6ic2qCv0r",
     "Accept" => "text/plain"
-  }
+    }
+    trails = []
+    # @trail = response["places"].first.first
+    response.each do |trail|
+      new_trail = Hash.new
 
-    binding.pry
-    # TODO more error checking (500 error, etc)
-    json = JSON.parse(response.body)
+      new_trail['city'] << trail.second.first["city"]
+      binding.pry
+    end
+    # json = JSON.parse(response.body)
+    # binding.pry
     json['url']
     render 'index'
+  end
+
+  def search
 
   end
     def create
     api = TrailAPI.new()
     url = api.unique_url
-
   end
 end
 

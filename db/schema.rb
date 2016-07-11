@@ -11,19 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711175723) do
+ActiveRecord::Schema.define(version: 20160711192352) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trail_activities", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "url"
+    t.text     "description"
+    t.integer  "trail_id"
+    t.integer  "activity_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "trail_apis", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-ActiveRecord::Schema.define(version: 20160624040526) do
-
-
   create_table "trails", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",        null: false
+    t.text     "directions"
+    t.float    "lat"
+    t.float    "lon"
+    t.text     "description"
+    t.string   "city",        null: false
+    t.string   "state",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "user_trails", force: :cascade do |t|
